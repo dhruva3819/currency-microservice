@@ -1,30 +1,16 @@
-pipeline {
-    agent {
-        label 'java-slave'
-    }
+stage('build') {
+    when {
+        expression {
+            def now = new Date()
+            def sdf = new java.text.SimpleDateFormat("MM-dd-yyyy HH:mm")
+            sdf.setTimeZone(TimeZone.getTimeZone("Asia/Kolkata")) // your local time zone
+            def formatted = sdf.format(now)
 
-    environment {
-        DEPLOY_TO = 'production'
-    }
-
-    stages {
-        stage('DeployToDev') {
-            steps {
-                echo "Deploying to dev env"
-            }
+            // Block 4 PM to 6 PM on June 26, 2025
+            !formatted.matches("06-26-2025 (1[6-7]):\\d{2}")
         }
-
-        stage('prodDeploy') {
-            when {
-                allOf {
-                    branch 'production'
-                    environment name: 'DEPLOY_TO', value: 'production'
-                }
-            }
-            steps {
-                echo "************ Deploying to production *******************"
-            }
-        }
+    }
+    steps {
+        echo "************ Building the application ************"
     }
 }
-
