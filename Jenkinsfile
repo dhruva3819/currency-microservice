@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('buildstage') {
             when {
-                environment name: 'TODAYS_DAY', value: 'tuesday'
+                environment name: 'TODAYS_DAY', value: 'monday'
             }
             when {
             expression { BRANCH_NAME: ==~ / (prod|hotfix)/ }
