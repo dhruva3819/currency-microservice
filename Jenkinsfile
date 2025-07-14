@@ -36,20 +36,5 @@ pipeline {
 
         stage('deployToStageEnv') {
             when {
-                branch 'release-'
-            }
-            steps {
-                echo "************ Deploying to stage environment ************"
-            }
-        }
-
-        stage('deployToProdEnv') {
-            when {
-                tag pattern: "v\\d{1,2}\\.\\d{1,2}\\.\\d{1,2}", comparator: "REGEXP"
-            }
-            steps {
-                echo "************ Deploying to production environment ************"
-            }
-        }
-    }
-}
+                expression {
+                    return env.BRANCH_NAME ==~ /^release-.*/
