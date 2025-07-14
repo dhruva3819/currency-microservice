@@ -1,27 +1,21 @@
 pipeline {
     agent {
-        label 'java-slave' 
+        label 'java-slave'
     }
+
+    environment {
+        TODAYS_DAY = 'thursday'
+    }
+
     stages {
-        stage('build') {
-            steps {
-                echo "Build stage from main branch"
+        stage('buildstage') {
+            when {
+                environment name: 'TODAYS_DAY', value: 'thursday'
             }
-        }
-        stage('Scans') {
             steps {
-                echo "Scans stage from main branch"
-            }
-        }
-        stage('dockerbuild') {
-            steps {
-                echo "Docker stage from main branch"
-            }
-        }
-        stage('deployment') {
-            steps {
-                echo "Deploying stage from main branch"
+                echo "Executing pipeline for 'when' condition example"
             }
         }
     }
 }
+
