@@ -10,11 +10,11 @@ pipeline {
     stages {
         stage('DeployToDev') {
             steps {
-                echo "Deploying to dev environment"
+                echo "Deploying to dev env"
             }
         }
 
-        stage('DeployToProd') 
+        stage('prodDeploy') 
         {
             when {
                 allOf {
