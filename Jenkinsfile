@@ -10,11 +10,14 @@ pipeline {
     stages {
         stage('buildstage') {
             when {
-                environment name: 'TODAYS_DAY', value: 'monday'
+                allOf {
+                    environment name: 'TODAYS_DAY', value: 'tuesday'
+                    expression {
+                        return env.BRANCH_NAME ==~ /(prod|hotfix)/
+                    }
+                }
             }
-            when {
-            expression { BRANCH_NAME: ==~ / (prod|hotfix)/ }
-                        steps {
+            steps {
                 echo "Executing pipeline for 'when' condition example"
             }
         }
