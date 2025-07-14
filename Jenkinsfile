@@ -36,9 +36,9 @@ pipeline {
 
         stage('deployToStageEnv') {
             when {
-                expression {
-                    return env.BRANCH_NAME ==~ /^release-.*/
-                }
+                anyof {
+                branch 'release*'
+                tag pattern: "v\\d{1,2}\\.\\d{1,2}\\.\\d{1,2}", comparator: "REGEXP"
             }
             steps {
                 echo "************ Deploying to stage environment ************"
@@ -55,3 +55,4 @@ pipeline {
         }
     }
 }
+
