@@ -14,7 +14,8 @@ pipeline {
             }
         }
 
-        stage('DeployToProd') {
+        stage('DeployToProd') 
+        {
             when {
                 allOf {
                     branch 'production'
@@ -22,8 +23,9 @@ pipeline {
                 }
             }
             steps {
-                echo "************ Deploying to production *******************"
+                echo "************ Deploying to production*******************"
             }
         }
     }
 }
+
