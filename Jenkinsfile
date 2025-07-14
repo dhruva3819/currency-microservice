@@ -3,28 +3,53 @@ pipeline {
         label 'java-slave'
     }
 
-    environment {
-        DEPLOY_TO = 'production'
-    }
-
     stages {
-        stage('DeployToDev') {
+        stage('build') {
             steps {
-                echo "Deploying to dev env"
+                echo "************ Building the application ************"
             }
         }
 
-        stage('prodDeploy') {
+        stage('sonar') {
+            steps {
+                echo "************ Performing the sonar scans ************"
+            }
+        }
+
+        stage('dockerbuild') {
+            steps {
+                echo "************ Building docker image ************"
+            }
+        }
+
+        stage('deployToDevEnv') {
+            steps {
+                echo "************ Deploying to dev environment ************"
+            }
+        }
+
+        stage('deployToTestEnv') {
+            steps {
+                echo "************ Deploying to test environment ************"
+            }
+        }
+
+        stage('deployToStageEnv') {
             when {
-                allOf {
-                    branch 'production'
-                    environment name: 'DEPLOY_TO', value: 'production'
-                }
+                branch 'release/*'
             }
             steps {
-                echo "************ Deploying to production *******************"
+                echo "************ Deploying to stage environment ************"
+            }
+        }
+
+        stage('deployToProdEnv') {
+            when {
+                tag pattern: "v\\d{1,2}\\.\\d{1,2}\\.\\d{1,2}", comparator: "REGEXP"
+            }
+            steps {
+                echo "************ Deploying to production environment ************"
             }
         }
     }
 }
-
