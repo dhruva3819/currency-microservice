@@ -36,7 +36,7 @@ pipeline {
 
         stage('deployToStageEnv') {
             when {
-                branch 'release*'
+                branch 'release-'
             }
             steps {
                 echo "************ Deploying to stage environment ************"
