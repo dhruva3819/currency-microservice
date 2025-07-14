@@ -11,9 +11,9 @@ pipeline {
         stage('buildstage') {
             when {
                 allOf {
-                    environment name: 'TODAYS_DAY', value: 'tuesday'
+                    environment name: 'TODAYS_DAY', value: 'monday'
                     expression {
-                        return env.BRANCH_NAME ==~ /(prod|hotfix)/
+                        return env.BRANCH_NAME ==~ /(prod|main)/
                     }
                 }
             }
