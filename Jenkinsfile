@@ -36,12 +36,15 @@ pipeline {
 
         stage('deployToStageEnv') {
             when {
-                branch 'release/*'
+                anyOf {
+                    branch 'release*'
+                    tag pattern: "v\\d{1,2}\\.\\d{1,2}\\.\\d{1,2}", comparator: "REGEXP"
+                }
             }
             steps {
                 echo "************ Deploying to stage environment ************"
             }
-        }
+        } // <-- this was missing
 
         stage('deployToProdEnv') {
             when {
