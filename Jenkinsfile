@@ -4,18 +4,18 @@ pipeline {
     }
 
     environment {
-        TODAYS_DAY = 'wenseday'
+        TODAYS_DAY = 'monday'
     }
 
     stages {
         stage('buildstage') {
             when {
-                environment name: 'TODAYS_DAY', value: 'thursday  '
+                environment name: 'TODAYS_DAY', value: 'tuesday'
             }
-            steps {
+            expression { BRANCH_NAME: ==~ / (prod/hotfix)/ }
+                        steps {
                 echo "Executing pipeline for 'when' condition example"
             }
         }
     }
 }
-
