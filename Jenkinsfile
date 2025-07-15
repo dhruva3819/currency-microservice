@@ -1,26 +1,31 @@
 pipeline {
-    agent {
-        label 'java-slave'
-    }
-
-    tools {
-        // Define tools if needed, e.g., JDK, Maven, etc.
-    }
-
-    parameters {
-        string(name: 'APPLICATION_NAME', description: 'Enter your application name', defaultValue: 'i27app')
-        booleanParam(name: 'RUN_TESTS', description: 'Would you like to run tests?', defaultValue: true)
-        choice(name: 'ENV', description: 'Which environment should I be deploying to?', choices: ['DEV', 'TEST', 'PROD'])
-        password(name: 'PASSWORD', description: 'Enter a password', defaultValue: 'SECRET')
-    }
-
+    agent any
+    
     stages {
-        stage('Parameters Example') {
+        stage('Build') {
             steps {
-                echo "My application name is: ${params.APPLICATION_NAME}"
-                echo "Are tests running? ${params.RUN_TESTS}"
-                echo "Deploying to: ${params.ENV}"
-                echo "Password entered is: ${params.PASSWORD}"
+                echo "Building the application"
+            }
+        }
+
+        stage('SonarScans') {
+            steps {
+                echo "Sonar Scan is executing"
+                sleep 15
+            }
+        }
+
+        stage('FortifyScans') {
+            steps {
+                echo "Fortify Scan is executing"
+                sleep 15
+            }
+        }
+
+        stage('prismaScans') {
+            steps {
+                echo "Final prisma Scan is executing"
+                sleep 15
             }
         }
     }
