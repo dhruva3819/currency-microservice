@@ -4,27 +4,23 @@ pipeline {
     }
 
     tools {
-
+        // Define tools if needed, e.g., JDK, Maven, etc.
     }
-
-//    enivroment {
-// // ${ENV_NAME}
-//    }
 
     parameters {
-        string(name: 'APPICATION_NAME', description: 'enter your application nmae', defaultvalues: 'i27app')
-        booleanparam(_name: 'RUN_TESTS', DESCRIPTION: 'would you like to run ?',defaultvalue: true)
-        choice(name:'ENV', description: 'WHICH ENV SHOULD I BE DEPOLYING ?', CHOICES: ['DEV', 'TEST', 'prod'])
-        pasword(name: 'PASSWORD', description: 'Enter a password', defaultvalue: 'SECRECT')
+        string(name: 'APPLICATION_NAME', description: 'Enter your application name', defaultValue: 'i27app')
+        booleanParam(name: 'RUN_TESTS', description: 'Would you like to run tests?', defaultValue: true)
+        choice(name: 'ENV', description: 'Which environment should I be deploying to?', choices: ['DEV', 'TEST', 'PROD'])
+        password(name: 'PASSWORD', description: 'Enter a password', defaultValue: 'SECRET')
     }
+
     stages {
-        satge ('parametersEample'){
+        stage('Parameters Example') {
             steps {
-                // code 
-                echo "my application name is : ${params.APPLICATION_NAME}"
-                echo "are testing running ? ${params.RUN_TESTS}"
-                echo "Depolying to ***** ${params.ENV}"
-                echo "Password Entered is: ${params.PASSWORD}"
+                echo "My application name is: ${params.APPLICATION_NAME}"
+                echo "Are tests running? ${params.RUN_TESTS}"
+                echo "Deploying to: ${params.ENV}"
+                echo "Password entered is: ${params.PASSWORD}"
             }
         }
     }
