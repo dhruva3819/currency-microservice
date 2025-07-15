@@ -3,6 +3,10 @@ pipeline {
         label 'java-slave'
     }
 
+    tools {
+        // You can add tools like JDK, Maven, etc. here later
+    }
+
     parameters {
         string(name: 'APPLICATION_NAME', description: 'Enter your application name', defaultValue: 'i27app')
         booleanParam(name: 'RUN_TESTS', description: 'Would you like to run tests?', defaultValue: true)
